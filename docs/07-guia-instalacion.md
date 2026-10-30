@@ -35,14 +35,18 @@ npm -v
 2. Abre Laragon y pulsa **Iniciar todo**. Debe verse MySQL en verde (puerto **3306**).
 3. Por defecto el usuario de MySQL es `root` sin contraseña. Así sirve para desarrollo.
 
-### Paso 2. Copiar el proyecto
+### Paso 2. Descargar el proyecto
 
-Copia la carpeta del proyecto a `C:\laragon\www\sistemas-ventas-curso` (o clónala con git si tienes
-el repositorio). Abre una terminal **en esa carpeta**:
+Abre una terminal en `C:\laragon\www` y clona el repositorio:
 
 ```bash
-cd C:\laragon\www\sistemas-ventas-curso
+cd C:\laragon\www
+git clone https://github.com/yorchavez9/SISTEMA-DE-VENTAS-FACTURACION-ELECTRONICA-SUNAT-CURSO.git sistemas-ventas-curso
+cd sistemas-ventas-curso
 ```
+
+(Sin git: en GitHub, **Code → Download ZIP**, descomprímelo en `C:\laragon\www\sistemas-ventas-curso` y
+abre una terminal en esa carpeta.)
 
 ### Paso 3. Instalar las dependencias
 
