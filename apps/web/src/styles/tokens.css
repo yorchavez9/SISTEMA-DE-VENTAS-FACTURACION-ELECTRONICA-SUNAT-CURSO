@@ -1,0 +1,156 @@
+/* Tokens de diseño: copia fiel del sistema de ferretería (C:\laragon\www\ferreteria\public\assets\css\main.css),
+   que replica el panel de CPE Service / Kodevo. Primario #F48C06; colores en hex.
+   Los nombres son los de shadcn/ui, así los componentes los usan directamente. Al final, alias para los
+   nombres antiguos de este proyecto (--bg, --fg, --muted-fg…) que aún usan algunos estilos. */
+
+:root {
+  --primary: #f48c06;
+  --primary-foreground: #ffffff;
+  --brand-soft: #fff6ef;
+  --brand-strong: #8a4c00; /* el primario cuando hace de texto: 6.6:1 */
+
+  /* En claro, página, tarjeta, diálogo y sidebar son el mismo color. */
+  --background: #fbfeff;
+  --foreground: #08181d;
+  --card: #fbfeff;
+  --card-foreground: #08181d;
+  --popover: #fbfeff;
+  --popover-foreground: #08181d;
+  --secondary: #fafdfe;
+  --secondary-foreground: #0d3944;
+  --muted: #fafdfe;
+  --muted-foreground: #5c7077;
+  --accent: #feefe4;
+  --accent-foreground: #703d00;
+
+  --destructive: #ff5f73;
+  --destructive-foreground: #ffffff;
+  --destructive-strong: #ff5f73;
+  --success: #1af788;
+  --success-foreground: #00220d;
+  --success-strong: #02713a;
+  --warning: #ffb703;
+  --warning-foreground: #261800;
+  --warning-strong: #7a5602;
+  --info: #3fa1ef;
+  --info-strong: #1f5f99;
+
+  --border: #e1eaed;
+  --input: #d9e4e7;
+  /* Relleno suave en lugar de líneas (teclas del PIN, pistas de barras, lista de pestañas). */
+  --campo: #eef3f5;
+  --borde-campo: #cdd8dc;
+  --campo-hover: #e4ecef;
+  --ring: #f48c06;
+  --overlay: rgba(8, 24, 29, 0.14);
+
+  /* Series de los gráficos (orden fijo, validado para daltonismo). */
+  --serie-1: #f48c06;
+  --serie-1-suave: #f7c295;
+  --serie-2: #2a78d6;
+  --serie-3: #1baf7a;
+  --serie-4: #4a3aa7;
+  --serie-5: #e87ba4;
+  /* Barras de una sola serie: paso del naranja con contraste >= 3:1 en ambos temas. */
+  --grafico-barra: #d77700;
+
+  --sidebar: #fbfeff;
+  --sidebar-foreground: #22363d;
+  --sidebar-primary: #f48c06;
+  --sidebar-primary-foreground: #ffffff;
+  /* Sin fondo de hover ni de ítem activo: lo marca el color del texto. */
+  --sidebar-accent: transparent;
+  --sidebar-accent-foreground: #8a4c00;
+  /* Sin líneas en todo el sistema. */
+  --sidebar-border: transparent;
+  --sidebar-ring: #f48c06;
+
+  --sombra-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --sombra-flotante: 0 2px 10px rgb(0 0 0 / 0.08);
+  --sombra-modal: 0 4px 16px rgb(0 0 0 / 0.08);
+  --sombra-tarjeta: none;
+  --sombra-elevada: 0 2px 4px -2px rgba(8, 24, 29, 0.08), 0 12px 24px -12px rgba(8, 24, 29, 0.14), 0 32px 64px -32px rgba(8, 24, 29, 0.18);
+
+  --radio: 0.7rem;
+  --radio-md: calc(var(--radio) - 2px);
+  --radio-sm: calc(var(--radio) - 4px);
+  --radio-xl: calc(var(--radio) + 4px);
+  --radius: var(--radio);
+
+  --barra: 3.5rem;
+  --control: 2.25rem;
+
+  --fuente: 'IBM Plex Sans Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --fuente-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --fuente-ticket: 'IBM Plex Mono', 'Cascadia Mono', 'Consolas', ui-monospace, monospace;
+
+  color-scheme: light;
+}
+
+.dark {
+  --brand-soft: #402812;
+  --brand-strong: #eeb687;
+
+  /* Diseño plano: tarjeta y barra lateral del mismo color que la página. */
+  --background: #060b11;
+  --foreground: #f1f5fa;
+  --card: #060b11;
+  --card-foreground: #f1f5fa;
+  --popover: #131a22;
+  --popover-foreground: #f1f5fa;
+  --secondary: #121920;
+  --secondary-foreground: #ebf1f7;
+  --muted: #11181e;
+  --muted-foreground: #98a4b1;
+  --accent: #341f0c;
+  --accent-foreground: #f6ceae;
+
+  --success-strong: #01e97e;
+  --warning-strong: #fdb502;
+  --info-strong: #8fc6f5;
+
+  --border: #181f26;
+  --input: #1d252d;
+  --campo: #161e26;
+  --borde-campo: #2c3640;
+  --campo-hover: #1d2731;
+  --overlay: rgba(0, 0, 0, 0.55);
+
+  --serie-1: #d77700;
+  --serie-1-suave: #643d18;
+  --serie-2: #3987e5;
+  --serie-3: #199e70;
+  --serie-4: #9085e9;
+  --serie-5: #d55181;
+
+  --sidebar: #060b11;
+  --sidebar-foreground: #d6dce3;
+  --sidebar-accent-foreground: #eeb687;
+
+  --sombra-elevada: 0 2px 4px -2px rgba(0, 0, 0, 0.4), 0 16px 32px -16px rgba(0, 0, 0, 0.55), 0 40px 80px -40px rgba(0, 0, 0, 0.65);
+
+  color-scheme: dark;
+}
+
+/* Pantallas táctiles: ningún control por debajo de 44 px. */
+@media (pointer: coarse) {
+  :root {
+    --control: 2.75rem;
+  }
+}
+
+/* Alias de los nombres antiguos de este proyecto. */
+:root,
+.dark {
+  --bg: var(--background);
+  --fg: var(--foreground);
+  --muted-fg: var(--muted-foreground);
+  --secondary-fg: var(--secondary-foreground);
+  --primary-fg: var(--primary-foreground);
+  --ok: var(--success);
+  --ok-strong: var(--success-strong);
+  --warn: var(--warning);
+  --warn-strong: var(--warning-strong);
+  --danger: var(--destructive-strong);
+  --sidebar-fg: var(--sidebar-foreground);
+}

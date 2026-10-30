@@ -1,0 +1,114 @@
+/* Tailwind 4 + shadcn/ui con el diseño de ferretería (tokens.css). base.css va en la capa base para que
+   las utilidades de los componentes puedan sobrescribirlo. */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './tokens.css';
+@import './base.css' layer(base);
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--fuente);
+  --font-mono: var(--fuente-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-campo: var(--campo);
+  --color-marca: var(--brand-strong);
+  --color-ok: var(--success-strong);
+  --color-exito: var(--success);
+  --color-warn: var(--warning-strong);
+  --color-aviso: var(--warning);
+  --color-info: var(--info-strong);
+  --color-peligro: var(--destructive-strong);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius: var(--radio);
+  --radius-sm: calc(var(--radio) - 4px);
+  --radius-md: calc(var(--radio) - 2px);
+  --radius-lg: var(--radio);
+  --radius-xl: calc(var(--radio) + 4px);
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    /* Barra de desplazamiento delgada en el color primario. */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: var(--radio-sm);
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  /* Como ferretería: sin barra de desplazamiento visible en el menú lateral, los modales y todo lo que
+     flota (selects, menús, calendario, buscadores). Se sigue desplazando con rueda, dedo o teclado. */
+  :is([role='dialog'], [role='listbox'], [role='menu'], [data-slot='sidebar-content'], [data-slot='sidebar-inner'], [data-slot='popover-content'], [data-slot='select-content'], [data-slot='dropdown-menu-content'], [data-slot='command-list'], [data-slot='sheet-content']),
+  :is([role='dialog'], [role='listbox'], [role='menu'], [data-slot='sidebar-content'], [data-slot='popover-content'], [data-slot='select-content'], [data-slot='dropdown-menu-content'], [data-slot='command-list'], [data-slot='sheet-content']) * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  :is([role='dialog'], [role='listbox'], [role='menu'], [data-slot='sidebar-content'], [data-slot='sidebar-inner'], [data-slot='popover-content'], [data-slot='select-content'], [data-slot='dropdown-menu-content'], [data-slot='command-list'], [data-slot='sheet-content'])::-webkit-scrollbar,
+  :is([role='dialog'], [role='listbox'], [role='menu'], [data-slot='sidebar-content'], [data-slot='popover-content'], [data-slot='select-content'], [data-slot='dropdown-menu-content'], [data-slot='command-list'], [data-slot='sheet-content']) *::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  /* El riel del menú (borde para plegarlo) funciona igual, pero sin la línea que aparece al pasar. */
+  [data-slot='sidebar-rail']::after {
+    background: transparent !important;
+  }
+}
+
+/* Pantallas táctiles: ningún control por debajo de 44 px (como en ferretería). */
+@media (pointer: coarse) {
+  [data-slot='button'],
+  [data-slot='input'],
+  [data-slot='select-trigger'],
+  [data-slot='toggle-group-item'],
+  [data-slot='tabs-trigger'] {
+    min-height: 2.75rem;
+  }
+  [data-slot='select-item'] {
+    min-height: 2.75rem;
+  }
+  [data-slot='checkbox'] {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}

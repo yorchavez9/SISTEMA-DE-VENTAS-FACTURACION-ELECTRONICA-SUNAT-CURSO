@@ -1,0 +1,593 @@
+# PROMPT PROFESIONAL: ANÁLISIS Y PLAN DE IMPLEMENTACIÓN DE UN SISTEMA DE VENTAS CON FACTURACIÓN ELECTRÓNICA SUNAT PERÚ
+
+## 1. OBJETIVO GENERAL
+
+Quiero desarrollar un **sistema web profesional de ventas, inventario y facturación electrónica para Perú**, integrado con la API de facturación electrónica SUNAT que utilizo en mis proyectos.
+
+Antes de comenzar a programar, debes analizar detalladamente los siguientes recursos locales:
+
+- **Colección de Postman:** colección correspondiente a mi API de facturación electrónica SUNAT Perú. Identifica dónde se encuentra disponible en el proyecto o en los archivos proporcionados.
+- **Proyecto de referencia de la API:** `C:\laragon\www\API-PRO`
+- **Proyecto de referencia visual y funcional:** `C:\laragon\www\ferreteria`
+
+Después del análisis, debes entregarme un **plan de implementación técnico, funcional y organizado por fases**, que permita desarrollar el sistema de manera ordenada, reutilizando los conocimientos obtenidos de los proyectos existentes y evitando errores de arquitectura o integración.
+
+**Importante:** en esta primera etapa, no debes comenzar a implementar funcionalidades ni modificar los proyectos existentes. Primero realiza el análisis y presenta el plan completo para su revisión.
+
+## 2. STACK TECNOLÓGICO OBLIGATORIO
+
+El sistema se desarrollará utilizando las siguientes tecnologías:
+
+### Frontend
+- React.
+- JavaScript o TypeScript, según lo que recomiendes técnicamente.
+- HTML5 y CSS3.
+- Diseño responsive para computadoras, tablets y dispositivos móviles.
+- Componentes reutilizables y arquitectura modular.
+- Validaciones de formularios y manejo consistente de errores.
+- Consumo de la API propia mediante servicios centralizados.
+
+### Backend
+- Node.js.
+- Express.js, salvo que el análisis justifique otra alternativa compatible.
+- API REST organizada por módulos.
+- Middleware para autenticación, autorización, validación y manejo de errores.
+- Servicios independientes para ventas, inventario, clientes, compras y facturación electrónica.
+- Procesamiento seguro de operaciones y transacciones.
+
+### Base de datos
+- MySQL.
+- Modelo de datos relacional normalizado.
+- Relaciones mediante claves primarias y foráneas.
+- Índices para optimizar consultas.
+- Transacciones para operaciones críticas.
+- Migraciones y estrategia de inicialización de la base de datos.
+
+Debes justificar brevemente las decisiones técnicas relevantes y mantener una separación clara entre frontend, backend, base de datos e integración con SUNAT.
+
+## 3. ANÁLISIS DEL PROYECTO API-PRO
+
+Analiza el proyecto ubicado en:
+
+`C:\laragon\www\API-PRO`
+
+El objetivo es comprender cómo funciona mi API de facturación electrónica para integrar correctamente sus servicios en el nuevo sistema.
+
+Debes revisar:
+
+1. La estructura de directorios y los archivos relevantes.
+2. Las rutas, controladores, servicios y validaciones disponibles.
+3. Los endpoints relacionados con la emisión y consulta de comprobantes.
+4. Los parámetros obligatorios y opcionales de cada endpoint.
+5. Los formatos de las solicitudes y respuestas JSON.
+6. Los códigos HTTP y las estructuras de error.
+7. Los mecanismos de autenticación y autorización.
+8. El tratamiento de las respuestas de SUNAT.
+9. Los procesos para generar y consultar documentos electrónicos.
+10. Las funcionalidades disponibles para descargar archivos PDF, XML y CDR.
+11. Los estados de los comprobantes y la forma de consultar su situación.
+12. Las operaciones adicionales, como notas de crédito, notas de débito, resúmenes diarios, anulaciones y guías de remisión, si están implementadas.
+13. Los requisitos de configuración, credenciales y certificados digitales.
+14. Las limitaciones conocidas y las consideraciones necesarias para consumir la API desde Node.js.
+
+No inventes endpoints ni supongas que una funcionalidad existe solamente porque sea habitual en otras API de facturación electrónica.
+
+Documenta los endpoints realmente identificados, sus métodos HTTP, parámetros, respuestas esperadas y posibles errores.
+
+## 4. ANÁLISIS DE LA COLECCIÓN DE POSTMAN
+
+Analiza la colección de Postman de mi API SUNAT Perú de forma integral.
+
+Revisa todas las carpetas, solicitudes, métodos HTTP, URL, encabezados, parámetros, cuerpos JSON, variables de entorno, ejemplos de respuestas y posibles flujos de ejecución.
+
+Organiza los resultados en una matriz como la siguiente:
+
+| Funcionalidad | Endpoint real | Método HTTP | Datos requeridos | Respuesta esperada | Módulo del sistema |
+|---|---|---|---|---|---|
+| Registro o configuración | Según colección | Según colección | Según colección | Según colección | Configuración |
+| Emisión de comprobantes | Según colección | Según colección | Según colección | Según colección | Ventas |
+| Consulta de comprobantes | Según colección | Según colección | Según colección | Según colección | Historial |
+| Descarga de PDF/XML/CDR | Según colección | Según colección | Según colección | Según colección | Documentos |
+| Notas de crédito y débito | Según colección | Según colección | Según colección | Según colección | Notas |
+| Otras operaciones | Según colección | Según colección | Según colección | Según colección | Según corresponda |
+
+Esta tabla es una plantilla de análisis, no una afirmación de que todos esos endpoints existan.
+
+Debes completar la matriz únicamente con información comprobada en la colección.
+
+Además:
+
+- Identifica los endpoints indispensables para una primera versión funcional.
+- Diferencia las funcionalidades disponibles de las que todavía no existen.
+- Explica cómo se relaciona cada endpoint con los módulos del sistema.
+- Identifica las dependencias entre operaciones.
+- Determina cómo manejar las respuestas exitosas, observaciones, rechazos y errores de conexión.
+- Detecta posibles inconsistencias entre los ejemplos de Postman y la implementación real de API-PRO.
+
+Si la colección no se encuentra en una ruta evidente, busca archivos JSON de Postman y documentación relacionada dentro de las carpetas pertinentes. Si no puedes acceder a ella, informa de la limitación y no inventes sus contenidos.
+
+## 5. ANÁLISIS DEL PROYECTO DE REFERENCIA
+
+Utiliza como referencia el proyecto:
+
+`C:\laragon\www\ferreteria`
+
+Analiza su diseño visual, distribución de pantallas, navegación y funcionalidades existentes.
+
+Revisa especialmente:
+
+- Estructura general del sistema.
+- Menú lateral y navegación.
+- Encabezado y controles principales.
+- Dashboard y gráficos.
+- Listados, tablas y filtros.
+- Formularios de registro y edición.
+- Ventanas modales.
+- Botones, iconos y acciones.
+- Tipografía, tamaños de texto, colores y espaciados.
+- Diseño de las pantallas de ventas y comprobantes, si existen.
+- Adaptación a dispositivos móviles.
+- Componentes reutilizables.
+- Experiencia de usuario durante las operaciones frecuentes.
+
+El nuevo sistema debe tomar este proyecto como **referencia visual y funcional**, adaptándolo a una arquitectura React + Node.js + MySQL.
+
+No copies ciegamente su código ni asumas que su tecnología actual es compatible con el nuevo stack. Identifica qué elementos se pueden reutilizar conceptualmente y cuáles deben reconstruirse.
+
+La interfaz debe conservar una identidad visual coherente, con un diseño moderno, limpio, profesional y responsive. Evita recargar las pantallas con colores innecesarios, bordes excesivos, tarjetas redundantes o formularios demasiado extensos.
+
+## 6. MÓDULOS FUNCIONALES DEL SISTEMA DE VENTAS
+
+Determina qué módulos necesita el sistema para operar de manera completa. Evalúa como mínimo los siguientes:
+
+### 6.1. Autenticación y seguridad
+- Inicio y cierre de sesión.
+- Recuperación de acceso, si corresponde.
+- Gestión de sesiones o tokens.
+- Roles, permisos y control de acceso.
+- Protección de rutas y endpoints.
+- Registro de actividades relevantes.
+
+### 6.2. Dashboard
+- Resumen de ventas.
+- Ingresos por período.
+- Comprobantes emitidos y pendientes.
+- Productos con stock bajo.
+- Productos más vendidos.
+- Indicadores de inventario.
+- Gráficos y filtros por fechas.
+
+Define indicadores útiles y especifica de dónde se obtendrán los datos.
+
+### 6.3. Gestión de productos y servicios
+- Registro, edición y desactivación.
+- Código interno y código de barras, si corresponde.
+- Descripción y categoría.
+- Unidad de medida.
+- Precio de compra y venta.
+- Tratamiento tributario e IGV.
+- Control de stock para productos inventariables.
+- Búsqueda rápida y filtros.
+
+### 6.4. Categorías y unidades de medida
+- Administración de categorías.
+- Unidades de medida.
+- Validaciones y relaciones con productos.
+- Configuración de los códigos necesarios para facturación electrónica.
+
+### 6.5. Gestión de clientes
+- Registro de personas naturales y empresas.
+- DNI, RUC y otros documentos admitidos.
+- Razón social o nombres completos.
+- Dirección, teléfono y correo electrónico.
+- Validaciones de información.
+- Búsqueda y selección rápida desde ventas.
+
+Determina cuáles son los datos obligatorios según el tipo de comprobante y las reglas que realmente admita la API.
+
+### 6.6. Gestión de proveedores y compras
+- Registro de proveedores.
+- Registro de compras.
+- Detalle de productos adquiridos.
+- Costos y cantidades.
+- Actualización de inventario.
+- Historial de compras.
+- Control de documentos de compra, cuando corresponda.
+
+Diferencia las compras registradas internamente de la emisión de comprobantes electrónicos propios.
+
+### 6.7. Inventario y movimientos de stock
+- Entradas y salidas.
+- Ajustes de inventario.
+- Kardex o historial de movimientos.
+- Stock disponible.
+- Alertas de stock mínimo.
+- Trazabilidad de movimientos.
+- Reversión controlada de movimientos ante anulaciones o cancelaciones.
+
+Evita que una misma venta descuente el inventario varias veces debido a reintentos o errores.
+
+### 6.8. Ventas y punto de venta
+- Pantalla de venta rápida.
+- Búsqueda y selección de productos.
+- Carrito de compra.
+- Modificación de cantidades.
+- Cálculo de precios, descuentos e impuestos.
+- Selección o registro de clientes.
+- Formas de pago.
+- Pago en efectivo, tarjeta, transferencia u otros medios configurables.
+- Cálculo del vuelto cuando corresponda.
+- Registro de ventas.
+- Emisión de comprobantes.
+- Consulta e impresión de documentos.
+- Historial de operaciones.
+
+Define claramente el flujo desde la selección de productos hasta la confirmación de la venta y la emisión del comprobante electrónico.
+
+### 6.9. Facturación electrónica SUNAT
+Utiliza exclusivamente las operaciones verificadas en API-PRO y en la colección de Postman.
+
+Evalúa los siguientes tipos de documentos según su disponibilidad:
+
+- Facturas electrónicas.
+- Boletas de venta electrónicas.
+- Notas de crédito.
+- Notas de débito.
+- Resúmenes diarios.
+- Comunicación de baja o anulación.
+- Guías de remisión.
+
+Considera también:
+
+- Construcción y validación del comprobante.
+- Cálculo de bases imponibles, IGV, descuentos y totales.
+- Envío a la API.
+- Tratamiento de respuestas exitosas y rechazadas.
+- Consulta del estado de emisión.
+- Almacenamiento de la respuesta original.
+- Descarga de PDF, XML y CDR, cuando estén disponibles.
+- Visualización de observaciones y errores.
+- Reintentos seguros.
+- Prevención de emisiones duplicadas.
+- Historial de eventos y trazabilidad.
+
+No marques una venta como facturada exitosamente solo porque el servidor recibió la solicitud. Define estados que distingan el registro local, el envío, la aceptación, el rechazo y la incertidumbre por errores de comunicación.
+
+### 6.10. Caja y pagos
+- Apertura y cierre de caja.
+- Registro de ingresos y egresos.
+- Métodos de pago.
+- Resumen de movimientos.
+- Diferencias de caja.
+- Relación entre pagos, ventas y comprobantes.
+
+Indica qué funciones son esenciales para la primera versión y cuáles pueden desarrollarse posteriormente.
+
+### 6.11. Notas de crédito y débito
+- Búsqueda del comprobante relacionado.
+- Selección del motivo.
+- Registro del detalle.
+- Validación de importes y referencias.
+- Envío a la API, si está disponible.
+- Seguimiento del estado.
+- Actualización de saldos y reportes sin alterar indebidamente el historial original.
+
+### 6.12. Reportes
+- Ventas por fechas.
+- Ventas por producto.
+- Ventas por cliente.
+- Ventas por usuario.
+- Ventas por método de pago.
+- Comprobantes emitidos, pendientes y rechazados.
+- Movimientos de inventario.
+- Compras y proveedores.
+- Cierres de caja.
+- Exportación a Excel o PDF, si se justifica.
+
+### 6.13. Configuración del sistema
+- Datos del negocio.
+- Datos tributarios.
+- Configuración de comprobantes.
+- Parámetros de impuestos.
+- Series y correlativos, cuando correspondan.
+- Usuarios, roles y permisos.
+- Configuración de la conexión con API-PRO.
+- Configuración de impresión y documentos.
+
+Las series, correlativos, certificados y credenciales deben administrarse de acuerdo con las responsabilidades reales de API-PRO y de SUNAT, sin duplicar mecanismos que ya gestione la API.
+
+### 6.14. Auditoría y mantenimiento
+- Registro de acciones importantes.
+- Historial de cambios.
+- Errores de integración.
+- Registro de intentos de emisión.
+- Respaldo y restauración de la base de datos.
+- Gestión de errores y monitoreo.
+
+## 7. ARQUITECTURA PROPUESTA
+
+Propón una arquitectura organizada y mantenible para React, Node.js y MySQL.
+
+Evalúa una estructura modular similar a la siguiente:
+
+**Frontend React**
+- `src/components/`
+- `src/pages/`
+- `src/layouts/`
+- `src/services/`
+- `src/hooks/`
+- `src/routes/`
+- `src/utils/`
+- `src/validators/`
+
+**Backend Node.js**
+- `src/modules/auth/`
+- `src/modules/users/`
+- `src/modules/products/`
+- `src/modules/customers/`
+- `src/modules/suppliers/`
+- `src/modules/purchases/`
+- `src/modules/inventory/`
+- `src/modules/sales/`
+- `src/modules/invoicing/`
+- `src/modules/cash/`
+- `src/modules/reports/`
+- `src/modules/settings/`
+- `src/modules/audit/`
+- `src/middlewares/`
+- `src/config/`
+- `src/database/`
+- `src/routes/`
+- `src/shared/`
+
+Esta estructura es una propuesta inicial. Ajusta los módulos después de analizar los requerimientos y evita crear carpetas innecesarias.
+
+Explica cómo se comunicarán React, el backend y MySQL. La integración con API-PRO debe realizarse desde el backend Node.js, no directamente desde React, para evitar exponer credenciales.
+
+## 8. DISEÑO DE LA BASE DE DATOS MYSQL
+
+Propón el modelo relacional necesario para el sistema.
+
+Evalúa tablas para:
+
+- Usuarios.
+- Roles y permisos.
+- Clientes.
+- Proveedores.
+- Productos.
+- Categorías.
+- Unidades de medida.
+- Compras y detalles.
+- Ventas y detalles.
+- Pagos.
+- Métodos de pago.
+- Movimientos de inventario.
+- Comprobantes electrónicos.
+- Historial de envíos y respuestas de API.
+- Notas de crédito y débito.
+- Cajas y movimientos de caja.
+- Configuraciones.
+- Auditoría.
+
+No crees tablas automáticamente sin justificar su finalidad. Determina qué entidades necesitan tablas independientes, sus relaciones, claves, índices y restricciones.
+
+Para cada entidad importante, describe sus campos principales, tipos de datos, relaciones y reglas de integridad.
+
+Considera:
+- Uso de DECIMAL para importes monetarios.
+- Manejo consistente de fechas y zonas horarias.
+- Transacciones para operaciones críticas.
+- Integridad entre ventas, pagos e inventario.
+- Conservación del historial de comprobantes y respuestas de SUNAT.
+- Prevención de registros duplicados.
+- Estrategia para cambios de precio sin modificar las ventas históricas.
+
+No almacenes datos sensibles innecesarios ni credenciales de API en texto plano.
+
+## 9. SEGURIDAD Y REGLAS DE NEGOCIO
+
+Incluye en el plan:
+
+- Validación de datos tanto en frontend como en backend.
+- Autenticación y permisos por operación.
+- Protección frente a SQL injection y XSS.
+- Gestión segura de sesiones o JWT, según la arquitectura.
+- Variables de entorno para secretos.
+- Protección de credenciales y certificados.
+- Limitación de solicitudes cuando sea necesario.
+- Registro de errores sin exponer secretos.
+- Copias de seguridad.
+- Control de concurrencia.
+- Transacciones de base de datos.
+- Idempotencia y reintentos seguros para operaciones de emisión.
+- Restricciones para evitar modificaciones indebidas de comprobantes emitidos.
+
+Define las reglas tributarias utilizando la información disponible en la API y la normativa aplicable. No inventes tasas, códigos tributarios ni validaciones obligatorias.
+
+## 10. PLAN DE IMPLEMENTACIÓN POR FASES
+
+Organiza el desarrollo en fases con dependencias claras.
+
+Como mínimo, evalúa estas etapas:
+
+**Fase 1. Auditoría técnica**
+- Análisis de API-PRO.
+- Análisis de Postman.
+- Análisis del proyecto ferretería.
+- Identificación de requisitos y limitaciones.
+
+**Fase 2. Diseño y arquitectura**
+- Arquitectura general.
+- Estructura de carpetas.
+- Diseño de base de datos.
+- Contratos de API interna.
+- Prototipos de pantallas principales.
+
+**Fase 3. Configuración inicial**
+- Creación del frontend React.
+- Creación del backend Node.js.
+- Configuración de MySQL.
+- Variables de entorno.
+- Migraciones y datos iniciales.
+
+**Fase 4. Seguridad y administración**
+- Autenticación.
+- Usuarios, roles y permisos.
+- Configuración del negocio.
+
+**Fase 5. Catálogos e inventario**
+- Productos.
+- Categorías.
+- Clientes y proveedores.
+- Compras.
+- Movimientos de stock.
+
+**Fase 6. Ventas**
+- Punto de venta.
+- Cálculos.
+- Pagos.
+- Registro transaccional.
+- Actualización de inventario.
+
+**Fase 7. Integración SUNAT**
+- Adaptador para API-PRO.
+- Emisión de comprobantes.
+- Consulta de estados.
+- Gestión de errores y reintentos.
+- PDF, XML y CDR.
+- Notas y operaciones adicionales verificadas.
+
+**Fase 8. Caja y reportes**
+- Aperturas y cierres.
+- Resúmenes.
+- Reportes operativos.
+
+**Fase 9. Pruebas y estabilización**
+- Pruebas unitarias.
+- Pruebas de integración.
+- Pruebas de interfaz.
+- Pruebas de concurrencia.
+- Validación de cálculos.
+- Pruebas de fallos de comunicación con API-PRO.
+
+**Fase 10. Preparación para producción**
+- Configuración del entorno.
+- Seguridad.
+- Copias de seguridad.
+- Registro de errores.
+- Despliegue y documentación.
+
+Para cada fase, especifica:
+
+1. Objetivo.
+2. Funcionalidades incluidas.
+3. Archivos o módulos que se crearán.
+4. Dependencias con otras fases.
+5. Criterios de aceptación.
+6. Pruebas necesarias.
+7. Riesgos técnicos.
+8. Resultado esperado.
+
+Asigna prioridades: imprescindible para el MVP, importante para la segunda etapa y opcional para futuras versiones.
+
+## 11. FLUJO COMPLETO DE UNA VENTA CON FACTURACIÓN ELECTRÓNICA
+
+Describe paso a paso el flujo esperado:
+
+1. El usuario inicia sesión.
+2. Accede al punto de venta.
+3. Busca y agrega productos.
+4. El sistema valida precios y stock.
+5. Selecciona o registra al cliente.
+6. Selecciona el tipo de comprobante.
+7. El sistema calcula los importes y los impuestos.
+8. Registra la operación mediante una transacción controlada.
+9. Procesa el pago según las reglas del negocio.
+10. El backend construye la solicitud conforme al contrato real de API-PRO.
+11. El backend envía la solicitud a la API.
+12. Se interpreta la respuesta.
+13. Se actualiza el estado del comprobante.
+14. Se registra la trazabilidad del proceso.
+15. Se permite consultar o descargar los documentos disponibles.
+16. Se actualizan los reportes y el inventario sin duplicar movimientos.
+
+Analiza también qué sucede cuando:
+- La API rechaza el comprobante.
+- La solicitud agota el tiempo de espera.
+- La conexión se pierde después de enviar la solicitud.
+- El usuario intenta emitir dos veces.
+- El pago se registra, pero la emisión queda pendiente.
+- SUNAT devuelve observaciones.
+- Se necesita emitir una nota de crédito.
+
+No asumas que una operación es reversible. Define los estados y procedimientos de recuperación según las capacidades reales de la API.
+
+## 12. PLAN DE PRUEBAS
+
+Define casos de prueba funcionales y técnicos para:
+
+- Registro y edición de productos.
+- Registro de clientes.
+- Cálculo de subtotales, descuentos, IGV y total.
+- Validación de cantidades y stock.
+- Registro de ventas.
+- Registro de pagos.
+- Emisión de facturas y boletas, según disponibilidad.
+- Manejo de rechazos y observaciones.
+- Consulta de comprobantes.
+- Descarga de PDF, XML y CDR.
+- Reintentos sin duplicación.
+- Notas de crédito y débito, cuando corresponda.
+- Permisos por rol.
+- Errores de base de datos.
+- Fallos de red.
+- Uso simultáneo del sistema.
+- Diseño responsive.
+
+Separa las pruebas locales, las pruebas contra API-PRO y las validaciones que dependan del entorno de SUNAT.
+
+## 13. ENTREGABLES DEL ANÁLISIS
+
+Al finalizar el análisis, presenta los siguientes entregables en este orden:
+
+1. **Resumen ejecutivo:** alcance y objetivo del sistema.
+2. **Diagnóstico de API-PRO:** funcionalidades verificadas y limitaciones.
+3. **Matriz de endpoints Postman:** métodos, parámetros, respuestas y módulos relacionados.
+4. **Diagnóstico del proyecto ferretería:** diseño y funcionalidades aprovechables como referencia.
+5. **Lista de requisitos funcionales y no funcionales.**
+6. **Módulos definitivos del sistema:** clasificados por prioridad.
+7. **Arquitectura recomendada:** frontend, backend, base de datos e integración SUNAT.
+8. **Estructura de carpetas propuesta.**
+9. **Modelo de base de datos:** tablas, campos principales y relaciones.
+10. **Flujos de negocio:** ventas, inventario y emisión electrónica.
+11. **Plan de implementación por fases:** dependencias y criterios de aceptación.
+12. **Plan de pruebas:** casos prioritarios y resultados esperados.
+13. **Riesgos y decisiones pendientes:** puntos que necesitan validación.
+14. **MVP recomendado:** alcance mínimo para disponer de un sistema funcional.
+15. **Lista ordenada de tareas técnicas:** lista para utilizar como hoja de ruta de desarrollo.
+
+## 14. REGLAS OBLIGATORIAS DE TRABAJO
+
+- Analiza los archivos reales antes de sacar conclusiones.
+- No inventes endpoints, parámetros, respuestas ni funcionalidades.
+- No modifiques los proyectos de referencia.
+- No sobrescribas ni elimines archivos existentes.
+- No empieces a programar el sistema durante esta etapa.
+- No generes código innecesario: el objetivo actual es el análisis y la planificación.
+- Identifica claramente los datos comprobados, las recomendaciones y los puntos pendientes de confirmar.
+- No expongas credenciales, certificados, tokens ni secretos en el informe.
+- Si encuentras información sensible en Postman o en archivos de configuración, indica dónde se utiliza sin reproducir su valor.
+- Prioriza la seguridad, la integridad de los datos, la facilidad de mantenimiento y la experiencia de usuario.
+- Mantén una arquitectura modular y evita duplicar la lógica de negocio.
+- Utiliza API-PRO como referencia para conocer el contrato de integración, sin asumir que debes reconstruir sus funciones dentro del nuevo sistema.
+- Utiliza el proyecto ferretería como referencia de diseño, no como justificación para conservar errores de arquitectura.
+- Si alguna ruta, archivo o funcionalidad no está disponible, informa expresamente de ello.
+- No afirmes que una integración funciona hasta identificar los requisitos y las pruebas que permitirían verificarla.
+
+## 15. INSTRUCCIÓN FINAL
+
+Comienza inspeccionando los proyectos locales y localizando la colección de Postman. Analiza primero API-PRO, después la colección y finalmente el proyecto ferretería.
+
+Consolida los hallazgos y prepara un plan de implementación integral, realista y técnicamente justificado para desarrollar mi sistema de ventas con React, Node.js y MySQL, incluyendo los módulos necesarios y la integración con la API de facturación electrónica SUNAT Perú.
+
+**Detente al finalizar el informe y espera mi aprobación antes de comenzar a crear o modificar archivos.**

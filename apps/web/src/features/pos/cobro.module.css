@@ -1,0 +1,181 @@
+/* Cobrar venta: resumen a la izquierda y tres pasos ordenados a la derecha (Comprobante, Cliente,
+   Pago). Plano: sin fondos, bordes ni líneas; las secciones se separan con espacio. */
+.cobro {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 2rem;
+  align-items: start;
+}
+.titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.titulo svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--primary);
+}
+.subtitulo {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+/* ---------- Resumen ---------- */
+.resumen {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+.productos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.productos li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.cantidad {
+  font-weight: 700;
+  color: var(--brand-strong);
+}
+.nombre {
+  overflow-wrap: anywhere;
+}
+.cifras {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+.cifras div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.cifras dd {
+  margin: 0;
+  color: var(--foreground);
+}
+.totalCobro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.totalCobro span {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+.totalCobro strong {
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--brand-strong);
+}
+.enlace {
+  align-self: flex-start;
+  height: auto !important;
+  padding: 0 !important;
+  color: var(--brand-strong) !important;
+  font-weight: 600;
+}
+
+/* ---------- Pasos ---------- */
+.pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-width: 0;
+}
+.paso {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.tresCuartos {
+  grid-column: span 3;
+}
+.pago {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pagoCabeza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+.vuelto {
+  justify-content: flex-end;
+  gap: 0.125rem !important;
+}
+.vuelto span {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+.vuelto strong {
+  font-size: 1.25rem;
+  line-height: 2.25rem;
+  color: var(--success-strong);
+}
+.pagosPie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+.estadoPago {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--destructive-strong);
+}
+.estadoPago[data-ok] {
+  color: var(--success-strong);
+}
+.estadoPago svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (max-width: 900px) {
+  .cobro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+  .resumen {
+    position: static;
+  }
+}
+@media (max-width: 720px) {
+  .tresCuartos {
+    grid-column: span 1;
+  }
+}
+@media (max-width: 460px) {
+  .tresCuartos {
+    grid-column: 1 / -1;
+  }
+}

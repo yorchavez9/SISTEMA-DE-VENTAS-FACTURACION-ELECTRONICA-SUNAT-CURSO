@@ -1,0 +1,33 @@
+{
+  "name": "sistemas-ventas-curso",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Sistema de ventas, inventario y facturación electrónica SUNAT (React + Node.js + MySQL)",
+  "workspaces": [
+    "packages/shared",
+    "apps/api",
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "npm run build -w @sv/shared && concurrently -n api,worker,web -c blue,magenta,green \"npm run dev -w @sv/api\" \"npm run dev:worker -w @sv/api\" \"npm run dev -w @sv/web\"",
+    "build": "npm run build -w @sv/shared && npm run build -w @sv/api && npm run build -w @sv/web",
+    "test": "npm run build -w @sv/shared && npm run test --workspaces --if-present",
+    "typecheck": "npm run build -w @sv/shared && npm run typecheck --workspaces --if-present",
+    "db:migrate": "npm run db:migrate -w @sv/api",
+    "db:rollback": "npm run db:rollback -w @sv/api",
+    "db:seed": "npm run db:seed -w @sv/api"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "typescript": "~5.9.3"
+  },
+  "overrides": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  }
+}

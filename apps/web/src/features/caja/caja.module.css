@@ -1,0 +1,17 @@
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+.tarjetas > * {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.monto {
+  font-size: 1.5rem;
+}
+.linea {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,49 @@
+.zona {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: 80mm auto;
+    margin: 3mm 4mm;
+  }
+  /* Al imprimir solo queda la zona de impresión (se ocultan la app y los modales). */
+  :global(body > *:not([data-impresion])) {
+    display: none !important;
+  }
+  .zona {
+    display: block;
+  }
+}
+
+.ticket {
+  width: 72mm;
+  font-family: 'IBM Plex Mono', 'Cascadia Mono', Consolas, monospace;
+  font-size: 10pt;
+  font-weight: 400;
+  color: #000;
+  background: #fff;
+  line-height: 1.35;
+}
+.ticket h3 {
+  margin: 0 0 1mm;
+  text-align: center;
+  font-size: 11pt;
+}
+.ticket p {
+  margin: 0;
+  text-align: center;
+}
+.fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 2mm;
+}
+.fila[data-fuerte='true'] {
+  font-weight: 700;
+  font-size: 11pt;
+}
+.separador {
+  margin: 1.5mm 0;
+  border-top: 1px dashed #000;
+}

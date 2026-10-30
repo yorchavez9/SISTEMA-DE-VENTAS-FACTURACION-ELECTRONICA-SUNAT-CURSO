@@ -1,0 +1,227 @@
+/* Tras cobrar: solo el comprobante, flotando sobre el velo, del ancho del formato elegido.
+   Sin marco ni fondo de modal; una barra mínima arriba (tamaño, imprimir, cerrar). */
+.modal {
+  --hoja: 302px; /* 80 mm a 96 ppp */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(var(--hoja), calc(100vw - 1rem));
+  height: calc(100dvh - 2rem);
+}
+.modal[data-formato='ticket-58'] {
+  --hoja: 219px; /* 58 mm */
+}
+.modal[data-formato='a5'] {
+  --hoja: 559px; /* 148 mm */
+}
+.modal[data-formato='a4'] {
+  --hoja: 794px; /* 210 mm */
+}
+
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: max-content;
+  max-width: calc(100vw - 1rem);
+}
+.formatos {
+  flex-wrap: nowrap !important;
+}
+.formatos > * {
+  height: 2.25rem;
+  padding: 0 0.875rem !important;
+}
+.botones {
+  display: flex;
+  gap: 0.375rem;
+}
+
+/* La hoja: papel blanco con sombra suave, sin borde. */
+.hoja {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border-radius: 0.375rem;
+  background: #fff;
+  box-shadow: var(--sombra-modal);
+  overflow: hidden;
+  transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.pdf {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.pdf[data-listo] {
+  opacity: 1;
+}
+.espera {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: #5b6b73;
+  font-size: 0.8125rem;
+}
+.espera svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--primary);
+}
+.espera strong {
+  color: #1d2a30;
+}
+.espera p {
+  margin: 0;
+  max-width: 18rem;
+}
+.espera[data-tono='alerta'] svg {
+  color: #c4122f;
+}
+
+/* ---------- Hoja local (modo simulación) ---------- */
+.local {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 14px 12px 18px;
+  color: #111;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.local::-webkit-scrollbar {
+  display: none;
+}
+.local[data-formato='a5'],
+.local[data-formato='a4'] {
+  padding: 32px 36px;
+  font-size: 13px;
+}
+.local header {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.local header strong {
+  font-size: 1.15em;
+  font-weight: 700;
+}
+.local[data-formato='a5'] header,
+.local[data-formato='a4'] header {
+  grid-template-columns: 1fr auto;
+  justify-items: start;
+  align-items: start;
+  text-align: left;
+}
+.local[data-formato='a5'] header span,
+.local[data-formato='a4'] header span {
+  padding: 8px 12px;
+  border: 1px solid #111;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
+}
+.localDatos,
+.localTotales {
+  display: grid;
+  gap: 2px;
+  margin: 0 0 10px;
+}
+.localDatos div,
+.localTotales div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.localDatos dt,
+.localTotales dt {
+  color: #555;
+}
+.localDatos dd,
+.localTotales dd {
+  margin: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.localTotales [data-total] {
+  margin: 4px 0;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+.localTotales [data-total] dt {
+  color: #111;
+}
+.localItems {
+  width: 100%;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+}
+.localItems th {
+  padding: 4px 2px;
+  border-bottom: 1px solid #111;
+  font-weight: 600;
+  text-align: left;
+}
+.localItems td {
+  padding: 4px 2px;
+  vertical-align: top;
+}
+.localItems th:first-child,
+.localItems td:first-child {
+  width: 2.5em;
+}
+.localItems th:last-child,
+.localItems td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+.localItems small {
+  display: block;
+  color: #555;
+}
+.local footer {
+  padding-top: 8px;
+  text-align: center;
+  color: #555;
+  font-size: 0.9em;
+}
+
+/* ---------- Impresión de la hoja local ---------- */
+.impresion {
+  display: none;
+}
+@media print {
+  :global(body > *:not([data-impresion])) {
+    display: none !important;
+  }
+  .impresion {
+    display: block;
+  }
+  .impresion .local {
+    height: auto;
+    overflow: visible;
+    padding: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .modal {
+    height: calc(100dvh - 1rem);
+  }
+  .formatos > * {
+    padding: 0 0.625rem !important;
+  }
+}

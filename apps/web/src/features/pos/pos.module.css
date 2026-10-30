@@ -1,0 +1,509 @@
+/* Vender: catálogo a la izquierda y la venta en curso a la derecha (fija al bajar). Todo con la
+   letra del sistema; plano como ferretería (sin bordes ni fondos de hover), con movimiento al tocar. */
+.pos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 25rem);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ---------- Catálogo ---------- */
+.catalogo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  min-width: 0;
+}
+.barraBusqueda {
+  display: flex;
+  gap: 0.5rem;
+}
+.campoBusqueda {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+.campoBusqueda > svg {
+  position: absolute;
+  left: 1rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--primary);
+  pointer-events: none;
+}
+.campoBusqueda input {
+  height: 2.75rem;
+  padding-left: 2.75rem;
+  padding-right: 4.5rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+}
+.atajo {
+  position: absolute;
+  right: 0.75rem;
+  padding: 0.125rem 0.45rem;
+  color: var(--muted-foreground);
+  font-family: inherit;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+@media (pointer: coarse) {
+  .atajo {
+    display: none;
+  }
+  .campoBusqueda input {
+    padding-right: 1rem;
+  }
+}
+.categorias {
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem;
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 1rem 0.75rem;
+}
+.rejilla[data-cargando] {
+  min-height: 12rem;
+}
+
+/* Tarjeta de producto: foto (o inicial), nombre, precio en naranja y stock. */
+.producto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.375rem;
+  border: 0;
+  border-radius: var(--radio-lg, 0.75rem);
+  background: none;
+  color: var(--foreground);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.producto:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.producto:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.agregado {
+  animation: agregado 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes agregado {
+  40% {
+    transform: scale(0.94);
+  }
+}
+.imagen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radio-md);
+}
+.imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.inicial {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--brand-strong);
+  opacity: 0.55;
+}
+@media (hover: hover) {
+  .producto:not(:disabled):hover .imagen img {
+    transform: scale(1.06);
+  }
+  .producto:not(:disabled):hover .productoNombre {
+    color: var(--brand-strong);
+  }
+}
+/* Cuánto de ese producto ya está en la venta; salta cada vez que cambia. */
+.insignia {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  min-width: 1.625rem;
+  height: 1.625rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--background);
+  color: var(--brand-strong);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.25);
+  animation: salto 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes salto {
+  0% {
+    transform: scale(0.4);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+.sello {
+  position: absolute;
+  inset: auto 0.5rem 0.5rem auto;
+  color: var(--destructive-strong);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+.productoNombre {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.5em;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  transition: color 0.15s;
+}
+.productoPie {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+.productoPie strong {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--brand-strong);
+  white-space: nowrap;
+}
+.productoPie span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.producto:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.producto:disabled .productoNombre {
+  text-decoration: line-through;
+  color: var(--muted-foreground);
+}
+.producto:disabled .productoPie strong {
+  color: var(--muted-foreground);
+}
+.sinResultados {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+.sinResultados svg {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary);
+}
+.sinResultados p {
+  margin: 0;
+  max-width: 22rem;
+}
+
+/* ---------- Venta en curso ---------- */
+.ticket {
+  position: sticky;
+  top: calc(var(--barra, 3.5rem) + 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  max-height: calc(100dvh - var(--barra, 3.5rem) - 2rem);
+  font-size: 0.875rem;
+}
+.volver {
+  display: none !important;
+  align-self: flex-start;
+  height: auto !important;
+  padding: 0 !important;
+  color: var(--brand-strong) !important;
+  font-weight: 600;
+}
+.ticketCabeza {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.ticketCabeza h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.contador {
+  display: grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  color: var(--brand-strong);
+  font-weight: 700;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.meta {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.lineas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 6rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.lineas::-webkit-scrollbar {
+  display: none;
+}
+.vacia {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding: 2rem 0.5rem;
+  text-align: center;
+}
+.vaciaIcono {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.25rem;
+  color: var(--primary);
+}
+.vaciaIcono svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+.vacia p {
+  margin: 0;
+  max-width: 15rem;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+/* Línea: nombre | importe, y debajo los controles. Entra deslizándose. */
+.linea {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.35rem 0.75rem;
+  padding: 0.5rem 0;
+  animation: entra 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes entra {
+  from {
+    opacity: 0;
+    transform: translateY(-0.375rem);
+  }
+}
+.lineaTexto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.lineaTexto strong {
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.lineaTexto span {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.importe {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.lineaControles {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.paso {
+  display: flex;
+  align-items: center;
+}
+.paso span {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: 700;
+  animation: salto 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.paso button svg {
+  color: var(--primary);
+}
+.cantidad {
+  width: 6rem;
+  height: 2rem;
+}
+.falta {
+  grid-column: 1 / -1;
+  font-size: 0.75rem;
+  color: var(--destructive-strong);
+}
+.resumen {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+.resumen div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.resumen dd {
+  margin: 0;
+  color: var(--foreground);
+}
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 700;
+}
+.total span {
+  font-size: 1rem;
+}
+.total strong {
+  font-size: 1.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--brand-strong);
+}
+.cobrar {
+  width: 100%;
+  height: 3rem !important;
+  border-radius: 999px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+}
+.cerrada {
+  max-width: 28rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* ---------- Barra del teléfono ---------- */
+.barraMovil {
+  display: none;
+}
+.barraContador {
+  display: grid;
+  place-items: center;
+  min-width: 1.375rem;
+  height: 1.375rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  color: var(--primary-foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .pos {
+    grid-template-columns: minmax(0, 1fr) clamp(18rem, 36vw, 22rem);
+    gap: 1rem;
+  }
+}
+
+/* Teléfono y tableta vertical: una sola vista a la vez y la barra de la venta fija abajo. */
+@media (max-width: 900px) {
+  .pos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pos[data-vista='productos'] .ticket,
+  .pos[data-vista='venta'] .catalogo,
+  .pos[data-vista='venta'] .barraMovil {
+    display: none;
+  }
+  .volver {
+    display: inline-flex !important;
+  }
+  .ticket {
+    position: static;
+    max-height: none;
+  }
+  .lineas {
+    overflow: visible;
+  }
+  .rejilla {
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.75rem 0.5rem;
+  }
+  .barraMovil {
+    position: sticky;
+    bottom: 0.75rem;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.625rem 0.625rem 0.625rem 1.25rem;
+    border-radius: 999px;
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: var(--sombra-flotante);
+    animation: entra 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .barraMovil > div {
+    display: grid;
+    min-width: 0;
+    line-height: 1.2;
+  }
+  .barraMovil strong {
+    font-size: 1.125rem;
+  }
+  .barraMovil span {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+  .barraMovil .barraContador {
+    color: var(--primary-foreground);
+  }
+}
+@media (max-width: 420px) {
+  .rejilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

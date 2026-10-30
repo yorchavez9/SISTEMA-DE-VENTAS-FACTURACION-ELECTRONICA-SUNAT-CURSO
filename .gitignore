@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Secretos: nunca versionar
+.env
+.env.*
+!.env.example
+
+# La colección de Postman contiene credenciales en texto plano
+*.postman_collection.json
+
+# Almacenamiento local del backend (PDF/XML/CDR en caché)
+apps/api/storage/
